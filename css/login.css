@@ -8,7 +8,7 @@
 body{
     width: 100vw;
     height: 100vh;
-    background: #081b29;
+    background: #030000;
     display: grid;
     justify-content: center;
     align-self: center;
@@ -20,21 +20,24 @@ body{
 
 .wrapper{
     position: relative;
+    max-width: 90%;
     width: 800px;
     height: 65vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border: 3px solid #00ffff;
-    box-shadow: 0 0 50px 0 #00a6bc;
+    border: 3px solid #ecea6b;
+    box-shadow: 0 0 50px 0 #bdbe4b;
+    margin: 0 auto;
+    align-self: center;
 }
 
 .banner{
     position: absolute;
     top: 0;
     right: 0;
-    width: 450px;
+    width: 55%;
     height: 100%;
-    background: linear-gradient(to right, #0ef, #c800ff);
+    background: linear-gradient(to right, rgb(0, 110, 255), #ff0000);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%);
     padding-right: 70px;
     text-align: right;
@@ -77,24 +80,24 @@ body{
     border: none;
     outline: none;
     background: none;
-    width: 260px;
+    width: 80%;
     margin-top: 40px;
     padding-right: 10px;
     font-size: 17px;
-    color: #0ef;
+    color: rgb(0, 110, 255);
 }
 
 .submit{
     border: none;
     outline: none;
-    width: 288px;
+    width: 80%;
     margin-top: 25px;
     padding: 10px 0;
     font-size: 20px;
     border-radius: 40px;
     letter-spacing: 1;
     cursor: pointer;
-    background: linear-gradient(45deg, #0ef, #c800ff);
+    background: linear-gradient(45deg, rgb(0, 110, 255), #ff0000);
 }
 
 .footer{
@@ -104,7 +107,12 @@ body{
 }
 
 .link{
-    color: #0ef;
+    color: rgb(0, 110, 255);
+    text-decoration: none;
+}
+
+.linked{
+    color: #fff;
     text-decoration: none;
 }
 
@@ -143,4 +151,96 @@ body{
 .fa-solid{
     position: absolute;
     left: 42%;
+}
+
+.fa-lock {
+    box-sizing: border-box;
+    position: absolute;
+    display: block;
+    transform: scale(var(--ggs, 1));
+    width: 12px;
+    height: 11px;
+    border: 2px solid;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom: transparent;
+    margin-top: -12px;
+}
+
+.fa-lock::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 16px;
+    height: 10px;
+    border-radius: 2px;
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 2px;
+    left: -4px;
+    top: 9px;
+}
+
+
+@media (max-width: 768px) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .banner {
+        width: 100%;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%);
+        padding-right: 30px;
+        text-align: center;
+    }
+
+    .wel_text {
+        font-size: 30px;
+    }
+
+    .form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .input {
+        width: 90%;
+        font-size: 15px;
+    }
+
+    .submit {
+        width: 90%;
+    }
+
+    .footer {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wel_text {
+        font-size: 24px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .input {
+        width: 85%;
+    }
+
+    .submit {
+        width: 85%;
+    }
+
+    .footer {
+        font-size: 10px;
+    }
 }
