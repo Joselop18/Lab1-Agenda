@@ -1,0 +1,114 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #333;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#contactos {
+    background-color: #333;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgb(255, 254, 254);
+    background-color: #fffcfc;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #1d1c1c;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.list-group-item:hover {
+    background: linear-gradient(to left, #024cad, #ff0000);;
+    transform: translateY(-5px);
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: #34495e;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+}
+
+.list-group-item a span {
+    color: #f0d646;
+    font-weight: 600;
+}
+
+.text-end a, .text-center a {
+    font-weight: bold;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 25px;
+    background-color: white;
+    color: #333;
+    display: inline-block;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    text-align: center;
+    margin: 10px;
+}
+
+.text-end a:hover, .text-center a:hover {
+    background: linear-gradient(to left, #024cad, #ff0000);
+    color: white;
+    transform: scale(1.12);
+}
+
+.text-end{
+    text-align: left !important;
+}
+
+.btn-secondary {
+    background-color: #34495e;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    
+}
+
+.btn-secondary:hover {
+    background-color: #c6ddf3;
+    transform: translateY(-2px);
+}
+.btn-success{
+    --bs-btn-border-color: none;
+}
+
+@media (max-width: 768px) {
+    #contactos {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .list-group-item {
+        padding: 10px;
+    }
+
+    .text-end a, .text-center a {
+        padding: 10px 15px;
+    }
+}
