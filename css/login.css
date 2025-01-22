@@ -8,7 +8,7 @@
 body{
     width: 100vw;
     height: 100vh;
-    background: #030000;
+    background: #000000ef;
     display: grid;
     justify-content: center;
     align-self: center;
@@ -37,10 +37,10 @@ body{
     right: 0;
     width: 55%;
     height: 100%;
-    background: linear-gradient(to right, rgb(0, 110, 255), #ff0000);
+    background: linear-gradient(to left, #024cad, #ff0000);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 100%);
     padding-right: 70px;
-    text-align: right;
+    text-align: left;
     flex-direction: column;
     display: flex;
     justify-content: center;
@@ -84,7 +84,7 @@ body{
     margin-top: 40px;
     padding-right: 10px;
     font-size: 17px;
-    color: rgb(0, 110, 255);
+    color: #006eff;
 }
 
 .submit{
@@ -97,7 +97,7 @@ body{
     border-radius: 40px;
     letter-spacing: 1;
     cursor: pointer;
-    background: linear-gradient(45deg, rgb(0, 110, 255), #ff0000);
+    background: linear-gradient(100deg, #006eff, #ff0000);
 }
 
 .footer{
@@ -107,7 +107,7 @@ body{
 }
 
 .link{
-    color: rgb(0, 110, 255);
+    color: #006eff;
     text-decoration: none;
 }
 
