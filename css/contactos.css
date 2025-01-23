@@ -18,8 +18,8 @@ h2 {
     background-color: #333;
     padding: 70px;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgb(255, 254, 254);
-    background-color: #fffcfc;
+    box-shadow: 0 10px 20px rgb(248, 210, 83);
+    background-color: #fefffc;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -33,7 +33,7 @@ h2 {
 }
 
 .list-group-item:hover {
-    background: linear-gradient(to left, #024cad, #ff0000);;
+    background: linear-gradient(to left, #024cad, #ff0000);
     transform: translateY(-5px);
 }
 

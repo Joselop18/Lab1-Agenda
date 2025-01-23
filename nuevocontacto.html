@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/nuevocontacto.css">
+</head>
+<body>
+    <section id="nuevocontacto" class="container my-5">
+        <h2 class="text-center mb-4" id="titulo-form">Agregar  Contacto</h2>
+        <form id="contact-form">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="mb-3">
+                <label for="ID" class="form-label">ID</label>
+                <input type="text" class="form-control" id="ID" name="ID" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit-btn">Agregar Contacto</button>
+        </form>
+        <div id="success-message" class="alert alert-success mt-3" style="display: none;">
+            El contacto ha sido agregado con éxito.
+        </div>
+        <div class="text-center mt-4">
+            <a href="ver-contactos.html" class="btn btn-secondary">Ver Contactos Agregados</a>
+        </div>
+    
+        <div class="text-center mt-4">
+            <a href="contactos.html" class="btn btn-secondary">Regresar a la lista de contactos</a>
+        </div>
+    </section>
+    <script>
+        let editingIndex = null;  
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('edit')) {
+                editingIndex = params.get('edit'); 
+                cargarFormulario(editingIndex);  
+            }
+        });
+    
+        
+        function cargarFormulario(index) {
+            const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+            const contact = contacts[index];
+    
+           
+            document.getElementById('nombre').value = contact.nombre;
+            document.getElementById('telefono').value = contact.telefono;
+            document.getElementById('ID').value = contact.id;  
+            document.getElementById('email').value = contact.email;
+            document.getElementById('direccion').value = contact.direccion;
+    
+            
+            document.getElementById('titulo-form').innerText = "Editar Contacto";
+            document.getElementById('submit-btn').innerText = "Actualizar Contacto";
+        }
+    
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();  
+    
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const id = document.getElementById('ID').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+    
+            const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    
+            if (editingIndex === null) {
+                if (contacts.some(contact => contact.id === id)) {
+                    alert('El ID ya existe. Por favor, use un ID diferente.');
+                    return;
+                }
+                contacts.push({
+                    id: id,
+                    nombre: nombre,
+                    telefono: telefono,
+                    email: email,
+                    direccion: direccion
+                });
+            } else {
+                contacts[editingIndex] = {
+                    id: id,
+                    nombre: nombre,
+                    telefono: telefono,
+                    email: email,
+                    direccion: direccion
+                };
+            }
+    
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+    
+            document.getElementById('contact-form').reset();
+    
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+    
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 5000);  
+        });
+    </script>
+</body>
+</html>
