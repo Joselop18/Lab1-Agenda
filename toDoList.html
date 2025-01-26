@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/toDoList.css">
+</head>
+<body>
+<section id="todo-list" class="container my-5">
+    <h2 class="text-center mb-4">Lista de Tareas</h2>
+    <div class="mb-3">
+        <input type="text" id="new-task" class="form-control" placeholder="Escribe la nueva tarea para hoy">
+    </div>
+    <div class="mb-3">
+        <label for="task-priority" class="form-label">Selecciona la prioridad:</label>
+        <select class="form-select" id="task-priority">
+            <option value="no-urgente" selected>No Urgente</option>
+            <option value="urgente">Urgente</option>
+            <option value="muy-urgente">Muy Urgente</option>
+        </select>
+    </div>
+    <button class="btn btn-primary mb-4" onclick="addTask()">Agregar tarea</button>
+    <ul class="list-group" id="task-list"></ul>
+</section>
+<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTaskModalLabel">Editar Tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="edit-task-text" class="form-label">Texto de la tarea</label>
+                    <input type="text" class="form-control" id="edit-task-text">
+                </div>
+                <div class="mb-3">
+                    <label for="edit-task-priority" class="form-label">Selecciona la prioridad:</label>
+                    <select class="form-select" id="edit-task-priority">
+                        <option value="no-urgente">No Urgente</option>
+                        <option value="urgente">Urgente</option>
+                        <option value="muy-urgente">Muy Urgente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="saveEditedTask()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center mt-4">
+    <a href="contactos.html" class="btn btn-secondary">Regresar - Contactos</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];  
+
+    function addTask() {
+        const taskInput = document.getElementById('new-task');
+        const taskPriority = document.getElementById('task-priority').value;
+        const taskText = taskInput.value.trim();
+
+        if (taskText) {
+            const task = {
+                text: taskText,
+                priority: taskPriority  
+            };
+
+            tasks.push(task);
+            saveTasks();  
+            displayTasks();  
+        }
+
+        taskInput.value = '';
+        document.getElementById('task-priority').value = 'no-urgente';  
+    }
+
+    function displayTasks() {
+        const taskList = document.getElementById('task-list');
+        taskList.innerHTML = ''; 
+
+        tasks.sort((a, b) => {
+            const priorityOrder = {
+                'no-urgente': 0,
+                'urgente': 1,
+                'muy-urgente': 2
+            };
+            return priorityOrder[b.priority] - priorityOrder[a.priority];
+        });
+
+        tasks.forEach((task, index) => {
+            const taskItem = document.createElement('li');
+            taskItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+
+            taskItem.innerHTML = `
+                <span>${task.text}</span>
+                
+                <!-- Muestra la prioridad actual de la tarea -->
+                <span class="badge bg-${task.priority === 'muy-urgente' ? 'danger' : task.priority === 'urgente' ? 'warning' : 'success'} rounded-pill">
+                    ${task.priority === 'muy-urgente' ? 'Muy Urgente' : task.priority === 'urgente' ? 'Urgente' : 'No Urgente'}
+                </span>
+                
+                <button class="btn btn-warning btn-sm" onclick="editTask(${index})">Editar</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTask(${index})">Eliminar</button>
+            `;
+            taskList.appendChild(taskItem);
+        });
+    }
+
+    function deleteTask(index) {
+        tasks.splice(index, 1);  
+        saveTasks();  
+        displayTasks();  
+    }
+
+    function editTask(index) {
+        const task = tasks[index];
+        currentTaskIndex = index;
+
+        document.getElementById('edit-task-text').value = task.text;
+        document.getElementById('edit-task-priority').value = task.priority;
+
+        const editModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
+        editModal.show();
+    }
+
+    function saveEditedTask() {
+        const editedText = document.getElementById('edit-task-text').value.trim();
+        const editedPriority = document.getElementById('edit-task-priority').value;
+
+        if (editedText !== '') {
+            tasks[currentTaskIndex].text = editedText;
+            tasks[currentTaskIndex].priority = editedPriority;
+
+            saveTasks();
+
+            displayTasks();
+
+            const editModal = bootstrap.Modal.getInstance(document.getElementById('editTaskModal'));
+            editModal.hide();
+        }
+    }
+
+    function saveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    displayTasks();
+</script>
+</body>
+</html>

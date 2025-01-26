@@ -64,7 +64,7 @@ body {
     transform: scale(1.12);
 }
 
-.btn-success{
+.btn-primary{
     --bs-btn-border-color: none;
 }
 
